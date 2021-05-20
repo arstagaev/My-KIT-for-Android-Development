@@ -58,40 +58,21 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-//    @RequiresApi(Build.VERSION_CODES.O)
-//    fun editFile(sFileName: String, sBody: String){
-//        val root = File(Environment.getExternalStorageDirectory(), "RithmBrass")
-//        if (!root.exists()) {
-//            root.mkdirs()
-//        }
-//        val gpxfile = File(root, sFileName)
-//
-//
-//        val lines: Stream<String>
-//
-//        lines = Files.lines(gpxfile.toPath(), Charset.forName("UTF-8"));
-//        val replacedLines: List<String> = lines.map<Any> { line ->
-//            line
-//        }.collect(Collectors.toList()) as List<String>
-//        Files.write(path, replacedLines, Charset.forName("UTF-8"))
-//        lines.close()
-//        println("Find and replace done")
-//
-//    }
     fun appendText(sFileName: String, sBody: String){
         try {
             val root = File(Environment.getExternalStorageDirectory(), "RithmBrass")
             if (!root.exists()) {
                 root.mkdirs()
             }
-            val gpxfile = File(root, sFileName)
+            val file = File(root, sFileName)
 
-            val fileOutputStream = FileOutputStream(gpxfile,true)
-            val writer = OutputStreamWriter(fileOutputStream)
-            writer.append(sBody)
-            writer.close()
+            val fileOutputStream = FileOutputStream(file,true)
+            val outputStreamWriter = OutputStreamWriter(fileOutputStream)
+            outputStreamWriter.append("\n "+sBody)
+
+            outputStreamWriter.close()
             fileOutputStream.close()
-            findAndReplacePartOfText(gpxfile)
+            //findAndReplacePartOfText(file)
 
         } catch (e: IOException) {
             Log.e("ccc","ERROR "+ e.message)
